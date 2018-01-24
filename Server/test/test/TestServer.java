@@ -5,7 +5,6 @@
  */
 package test;
 
-import Server_Main.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,7 +25,7 @@ public class TestServer {
             System.out.println("Connect from : "+socket.getRemoteSocketAddress());
             
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
