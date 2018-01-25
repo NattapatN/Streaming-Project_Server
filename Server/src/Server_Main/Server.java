@@ -32,13 +32,17 @@ public class Server {
 
                 ServerSocket sSocket = new ServerSocket(0);
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                DataInputStream in = new DataInputStream(socket.getInputStream());
                 int port = sSocket.getLocalPort();
                 out.writeInt(port);
+                int link = in.readInt();
+                System.out.println("Client have " + link + " Network Connection");
                 sSocket.close();
-//                socket = sSocket.accept();
-//                
-//                ServerThread sThread = new ServerThread(socket,port);
-//                sThread.start();
+                
+                for (int i = 0; i < link; i++) {
+                    ServerThread sThread = new ServerThread(port+i);
+                    sThread.start();
+                }
             }
 
         } catch (IOException ex) {

@@ -5,23 +5,40 @@
  */
 package Server_Main;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author NattapatN
  */
 public class ServerThread extends Thread {
-
-    Socket socket;
     int port;
 
-    public ServerThread(Socket socket, int port) {
-        this.socket = socket;
+    public ServerThread(int port) {
         this.port = port;
     }
 
     public void run(){
+        try {
+            ServerSocket serverSocket = new ServerSocket(port);
+            Socket socket = serverSocket.accept();
+            
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+            int length = in.readInt();
+            byte[] data = new byte[length];
+            in.readFully(data);
+            String name = new String(data,"UTF-8");
+            System.out.println("file name : "+name);
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
