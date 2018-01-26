@@ -5,6 +5,7 @@
  */
 package Server_Main;
 
+<<<<<<< HEAD
 import java.io.DataInputStream;
 <<<<<<< HEAD
 import java.io.DataOutputStream;
@@ -12,9 +13,9 @@ import java.io.DataOutputStream;
 >>>>>>> 74854bccdbf98d37679ff83656cde4798694c85f
 import java.io.IOException;
 import java.net.ServerSocket;
+=======
+>>>>>>> parent of 9c7a4a6... v 0.0.6
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,11 +25,14 @@ public class ServerThread extends Thread {
 <<<<<<< HEAD
 
     Socket socket;
-    int bufferSize;
-    public ServerThread(Socket socket) {
+    int port;
+
+    public ServerThread(Socket socket, int port) {
         this.socket = socket;
+        this.port = port;
     }
 
+<<<<<<< HEAD
     public void run() {
         try {
             ServerSocket sSocket = new ServerSocket(0);
@@ -85,6 +89,9 @@ public class ServerThread extends Thread {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
 >>>>>>> 74854bccdbf98d37679ff83656cde4798694c85f
+=======
+    public void run(){
+>>>>>>> parent of 9c7a4a6... v 0.0.6
     }
 
 }
