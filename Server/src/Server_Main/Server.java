@@ -5,8 +5,6 @@
  */
 package Server_Main;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,22 +21,12 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(9000);
             System.out.println("[ Server ]");
-            while (true) {
-                System.out.println();
-                System.out.println("waiting for connection...");
+            while(true){
                 Socket socket = serverSocket.accept();
-                System.out.print("connected form client : ");
+                System.out.print("connected form client :");
                 System.out.println(socket.getRemoteSocketAddress());
-
-                ServerSocket sSocket = new ServerSocket(0);
-                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                int port = sSocket.getLocalPort();
-                out.writeInt(port);
-                sSocket.close();
-//                socket = sSocket.accept();
-//                
-//                ServerThread sThread = new ServerThread(socket,port);
-//                sThread.start();
+                ServerThread2 serverThread = new ServerThread2(socket);
+                serverThread.start();
             }
 
         } catch (IOException ex) {
