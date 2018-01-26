@@ -31,6 +31,7 @@ public class Server {
                 System.out.println(socket.getRemoteSocketAddress());
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 ServerThread2 serverThread = new ServerThread2(socket);
                 serverThread.start();
 =======
@@ -50,6 +51,8 @@ public class Server {
                 }
 >>>>>>> 74854bccdbf98d37679ff83656cde4798694c85f
 =======
+=======
+>>>>>>> parent of 9c7a4a6... v 0.0.6
 
                 ServerSocket sSocket = new ServerSocket(0);
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
@@ -60,6 +63,9 @@ public class Server {
 //                
 //                ServerThread sThread = new ServerThread(socket,port);
 //                sThread.start();
+<<<<<<< HEAD
+>>>>>>> parent of 9c7a4a6... v 0.0.6
+=======
 >>>>>>> parent of 9c7a4a6... v 0.0.6
             }
 
