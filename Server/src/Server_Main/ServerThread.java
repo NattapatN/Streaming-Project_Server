@@ -5,38 +5,26 @@
  */
 package Server_Main;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import java.io.DataInputStream;
-<<<<<<< HEAD
 import java.io.DataOutputStream;
-=======
->>>>>>> 74854bccdbf98d37679ff83656cde4798694c85f
 import java.io.IOException;
 import java.net.ServerSocket;
-=======
->>>>>>> parent of 9c7a4a6... v 0.0.6
-=======
->>>>>>> parent of 9c7a4a6... v 0.0.6
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author NattapatN
  */
 public class ServerThread extends Thread {
-<<<<<<< HEAD
 
     Socket socket;
-    int port;
-
-    public ServerThread(Socket socket, int port) {
+    int bufferSize;
+    public ServerThread(Socket socket) {
         this.socket = socket;
-        this.port = port;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     public void run() {
         try {
             ServerSocket sSocket = new ServerSocket(0);
@@ -47,25 +35,10 @@ public class ServerThread extends Thread {
             
             bufferSize = in.readInt();
             long size = in.readLong();
-=======
-    int port;
-
-    public ServerThread(int port) {
-        this.port = port;
-    }
-
-    public void run(){
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            Socket socket = serverSocket.accept();
-            
-            DataInputStream in = new DataInputStream(socket.getInputStream());
->>>>>>> 74854bccdbf98d37679ff83656cde4798694c85f
             int length = in.readInt();
             byte[] data = new byte[length];
             in.readFully(data);
             String name = new String(data,"UTF-8");
-<<<<<<< HEAD
             System.out.println("Name : "+name);
             System.out.println("Size : "+size);
             
@@ -85,20 +58,6 @@ public class ServerThread extends Thread {
         } catch (InterruptedException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         } 
-=======
-            System.out.println("file name : "+name);
-            
-            
-        } catch (IOException ex) {
-            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
->>>>>>> 74854bccdbf98d37679ff83656cde4798694c85f
-=======
-    public void run(){
->>>>>>> parent of 9c7a4a6... v 0.0.6
-=======
-    public void run(){
->>>>>>> parent of 9c7a4a6... v 0.0.6
     }
 
 }
