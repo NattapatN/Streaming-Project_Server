@@ -6,8 +6,6 @@
 package Server_Main;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -22,12 +20,10 @@ public class ThreadNIC extends Thread {
 
     Socket socket;
     String filename;
-    int size;
-    
-    public ThreadNIC(Socket socket,String filename,int size) {
+
+    public ThreadNIC(Socket socket, String filename) {
         this.socket = socket;
         this.filename = filename;
-        this.size = size;
     }
 
     public void run() {
@@ -35,17 +31,14 @@ public class ThreadNIC extends Thread {
         try {
             System.out.println("Client : " + socket.getRemoteSocketAddress() + " Conected!");
             dis = new DataInputStream(socket.getInputStream());
-            FileOutputStream fos = new FileOutputStream("media/out"+filename);
-            byte[] buffer = new byte[4096];
-            int filesize = 100000000; // Send file size in separate msg
+            FileOutputStream fos = new FileOutputStream("media/out" + filename + ".cache");
+            byte[] buffer = new byte[1024 * 1024];
+            int filesize = 1024 * 1024; // Send file size in separate msg
             int read = 0;
-            int totalRead = 0;
             int remaining = filesize;
-            while((read = dis.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
-                totalRead += read;
-                remaining -= read;
-                fos.write(buffer, 0, read);
-            }
+            read = dis.read(buffer, 0, Math.min(buffer.length, remaining));    
+            fos.write(buffer, 0, read);
+            
             System.out.println("Receive Complete.");
             fos.close();
             dis.close();

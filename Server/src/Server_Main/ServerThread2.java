@@ -33,23 +33,16 @@ public class ServerThread2 extends Thread {
             int port = sSocket.getLocalPort();
             out.writeInt(port);
             int link = in.readInt();
-            
             bufferSize = in.readInt();
-            long size = in.readLong();
-            int length = in.readInt();
-            byte[] data = new byte[length];
-            in.readFully(data);
-            String name = new String(data,"UTF-8");
-            System.out.println("Name : "+name);
-            System.out.println("Size : "+size);
+            
             System.out.println("Client Network Conection : "+link);
             System.out.println();
-            
-            for(int i =0;i<2;i++){
+            int count=0;
+            while(true){
                 Socket socket = sSocket.accept();
-                socket.close();
-                ThreadNIC tnic = new ThreadNIC(socket,name,(int)size);
+                ThreadNIC tnic = new ThreadNIC(socket,""+count);
                 tnic.start();
+                count++;
             }
 
         } catch (IOException ex) {
