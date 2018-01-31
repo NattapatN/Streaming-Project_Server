@@ -12,7 +12,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author NattapatN
@@ -32,30 +31,21 @@ public class ServerThread extends Thread {
             DataInputStream in = new DataInputStream(socket.getInputStream());
             int port = sSocket.getLocalPort();
             out.writeInt(port);
-            
+            int link = in.readInt();
             bufferSize = in.readInt();
-            long size = in.readLong();
-            int length = in.readInt();
-            byte[] data = new byte[length];
-            in.readFully(data);
-            String name = new String(data,"UTF-8");
-            System.out.println("Name : "+name);
-            System.out.println("Size : "+size);
             
+            System.out.println("Client Network Conection : "+link);
+            System.out.println();
             int count=0;
-            while (true) {
+            while(true){
                 Socket socket = sSocket.accept();
-                System.out.println("Client connected : "+count);
-                sleep(5000);
-                socket.close();
-//                ThreadReceive tc = new ThreadReceive(socket,count,bufferSize,name+".cache"+count);
-//                tc.start();
+                DataInputStream dis = new DataInputStream(socket.getInputStream());
+                ThreadReceive tr = new ThreadReceive(dis,bufferSize,"media/fileOut"+count+".mp4");
+                tr.start();
                 count++;
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }

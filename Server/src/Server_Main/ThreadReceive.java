@@ -5,9 +5,10 @@
  */
 package Server_Main;
 
-import Module.Download;
+import java.io.DataInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,24 +17,43 @@ import java.util.logging.Logger;
  * @author NattapatN
  */
 public class ThreadReceive extends Thread{
-    Socket socket;
-    int count;
+    DataInputStream dis;
     int bufferSize;
     String fileName;
-    public ThreadReceive(Socket socket,int count,int bufferSize,String fileName){
-        this.socket=socket;
-        this.count = count;
+    public ThreadReceive(DataInputStream dis,int bufferSize,String fileName){
+        this.dis =dis;
         this.bufferSize =bufferSize;
         this.fileName=fileName;
     }
     
     public void run(){
+        System.out.print("starr");
+        FileOutputStream fos = null;
         try {
-            Download down = new Download(socket,bufferSize);
-            down.down(fileName, bufferSize);
-            socket.close();
+            fos = new FileOutputStream(fileName);
+            byte[] buffer = new byte[4096];
+            int filesize = bufferSize; // Send file size in separate msg
+            int read = 0;
+            int totalRead = 0;
+            int remaining = filesize;
+            while((read = dis.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
+                totalRead += read;
+                remaining -= read;
+                fos.write(buffer, 0, read);
+            }
+            fos.close();
+            dis.close();
+            System.out.println("stop");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ThreadReceive.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ThreadReceive.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ThreadReceive.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     

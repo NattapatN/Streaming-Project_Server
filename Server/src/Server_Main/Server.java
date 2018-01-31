@@ -25,7 +25,7 @@ public class Server {
                 Socket socket = serverSocket.accept();
                 System.out.print("connected form client :");
                 System.out.println(socket.getRemoteSocketAddress());
-                ServerThread2 serverThread = new ServerThread2(socket);
+                ServerThread serverThread = new ServerThread(socket);
                 serverThread.start();
             }
 

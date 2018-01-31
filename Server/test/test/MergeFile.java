@@ -17,17 +17,14 @@ import java.util.List;
  */
 public class MergeFile {
 
-    private static String FILE_NAME = "media/out";
-
     public static void main(String[] args) {
-        File ofile = new File(FILE_NAME);
         FileOutputStream fos;
         FileInputStream fis;
         byte[] fileBytes;
         int bytesRead = 0;
         List<File> list = new ArrayList<File>();
         for (int i = 0; i < 25; i++) {
-            list.add(new File(FILE_NAME + i+".cache"));
+            list.add(new File("media/fileOut"+i+".mp4"));
         }
 
         try {
