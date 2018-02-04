@@ -27,7 +27,7 @@ public class ThreadReceive extends Thread{
     }
     
     public void run(){
-        System.out.print("starr");
+        System.out.print("start : ");
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(fileName);

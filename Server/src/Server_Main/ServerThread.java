@@ -39,6 +39,7 @@ public class ServerThread extends Thread {
             int count=0;
             while(true){
                 Socket socket = sSocket.accept();
+                System.out.println(socket.getRemoteSocketAddress());
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
                 ThreadReceive tr = new ThreadReceive(dis,bufferSize,"media/fileOut"+count+".mp4");
                 tr.start();
