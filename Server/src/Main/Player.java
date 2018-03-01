@@ -41,7 +41,6 @@ public class Player extends Thread {
     }
 
     public void run() {
-        System.out.println("Player Start");
         JFrame f = new JFrame();
         f.setLocation(100, 50);
         f.setSize(1000, 600);

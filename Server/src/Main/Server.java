@@ -12,6 +12,7 @@ package Main;
 public class Server {
 
     public static void main(String[] args) {
+        System.out.println("[Server Start]");
         ServerFile file = new ServerFile();
         ServerLive live = new ServerLive();
         file.start();

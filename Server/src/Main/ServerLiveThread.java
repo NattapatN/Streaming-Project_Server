@@ -28,6 +28,7 @@ public class ServerLiveThread extends Thread {
 
     public void run() {
         try {
+            System.out.println("File No.\tTime Stamp\tNetwork");
             ServerSocket sSocket = new ServerSocket(0);
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             DataInputStream in = new DataInputStream(socket.getInputStream());

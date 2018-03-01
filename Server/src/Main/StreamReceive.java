@@ -47,7 +47,7 @@ public class StreamReceive extends Thread{
             }
             fos.close();
             dis.close();
-            System.out.println("receive"+filename);
+            System.out.println(filename+"\t\t"+System.currentTimeMillis()+"\t"+socket.getRemoteSocketAddress());
             if(filename==2){
                 sleep(4000);
                 player.start();
