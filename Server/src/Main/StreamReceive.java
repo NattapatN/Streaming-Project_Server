@@ -16,26 +16,27 @@ import java.util.logging.Logger;
  *
  * @author NattapatN
  */
-public class StreamReceive extends Thread{
+public class StreamReceive extends Thread {
+
     Socket socket;
     int filename;
     Player player;
-    
-    public StreamReceive(Socket socket,int filename,Player player){
+
+    public StreamReceive(Socket socket, int filename, Player player) {
         this.player = player;
         this.socket = socket;
         this.filename = filename;
-        
+
     }
-    
-    public void run(){
+
+    public void run() {
         try {
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             long size = dis.readLong();
-            
-            FileOutputStream fos = new FileOutputStream("media/out"+filename+".mp4");
+
+            FileOutputStream fos = new FileOutputStream("media/out" + filename + ".mp4");
             byte[] buffer = new byte[4096];
-            
+
             int filesize = (int) size;
             int read = 0;
             int totalRead = 0;
@@ -47,19 +48,19 @@ public class StreamReceive extends Thread{
             }
             fos.close();
             dis.close();
-            System.out.println(filename+"\t\t"+System.currentTimeMillis()+"\t"+socket.getRemoteSocketAddress());
-            if(filename==2){
+            System.out.println(filename + "\t\t" + System.currentTimeMillis() + "\t" + socket.getRemoteSocketAddress());
+            if (filename == 2) {
                 sleep(4000);
                 player.start();
-            }else if(filename>2){
-                player.add(filename-1);
+            } else if (filename > 2) {
+                player.add(filename - 1);
             }
-            
+
         } catch (IOException ex) {
             Logger.getLogger(StreamReceive.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(StreamReceive.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

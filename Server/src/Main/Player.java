@@ -79,32 +79,41 @@ public class Player extends Thread {
         playlist = mpf.newMediaList();
         playlist.addMedia("media/out0.mp4");
         playlist.addMedia("media/out1.mp4");
-        
 
         player.setMediaList(playlist);
         player.setMode(MediaListPlayerMode.DEFAULT);
         player.play();
-        start = System.currentTimeMillis();
+//        start = System.currentTimeMillis();
+//        boolean endLive = false;
 //        long start = System.currentTimeMillis();
 //        int count = 1;
-//        while (true) {
+//        while (!endLive) {
 //            if (new File("media/out" + count + ".mp4").exists()) {
 //                playlist.addMedia("media/out" + count + ".mp4");
-//                if (System.currentTimeMillis() - start > 5000) {
+//                if (System.currentTimeMillis() - start > 7000) {
 //                    player.playItem(count);
 //                }
-//                start = System.currentTimeMillis();
 //                count++;
+//                start = System.currentTimeMillis();
+//            } else if (new File("media/out" + (count + 1) + ".mp4").exists()) {
+//                endLive = true;
+//                System.out.println("[Endlvie]");
+//            } else if (System.currentTimeMillis() - start >= 30000) {
+//                endLive = true;
+//                System.out.println("[Endlvie]");
 //            }
 //        }
     }
 
     public void add(int filename) {
-        playlist.addMedia("media/out" + filename + ".mp4");
-        if (System.currentTimeMillis() - start > 7000) {
-            player.playItem(filename);
-        } else {
+        File countFile = new File("media");
+        if (countFile.list().length<=filename+1) {
+            playlist.addMedia("media/out" + filename + ".mp4");
+            if (System.currentTimeMillis() - start > 7000) {
+                player.playItem(filename);
+            }
             start = System.currentTimeMillis();
+
         }
     }
 
